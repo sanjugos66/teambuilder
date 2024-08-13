@@ -107,17 +107,8 @@ def analyze_url_content(url):
             return None
     except Exception as e:
         return None
-
-def team_builder_page():
-    # Header and introduction
-    col1, col2, col3 = st.columns([2,1.3,2])
-    with col1:
-        st.write(' ')
-    with col2:
-        st.image("Connext_Logo.png", width=400)
-    with col3:
-        st.write(' ')
-       
+    
+def main():
     st_lottie(welcome_animation, height=200, key="welcome_animation")
 
     st.write("""
@@ -221,11 +212,10 @@ def team_builder_page():
                         st.warning("Failed to generate job roles. Please provide more specific details.")
                         st.session_state.show_job_list = False
                 else:
-                    st.warning("Your input is out of context. Please provide more specific details.")
                     st.session_state['job_list'] = []
                     st.session_state.show_job_list = False
     
-                st.experimental_rerun()
+                
     
     if st.session_state.main_response:
         with st.expander("View Response"):
@@ -277,11 +267,10 @@ def team_builder_page():
                             st.warning("Failed to generate job roles. Please provide more specific details.")
                             st.session_state.show_job_list = False
                     else:
-                        st.warning("Your additional info is out of context. Please provide more specific details.")
                         st.session_state['job_list'] = []
                         st.session_state.show_job_list = False
     
-                st.experimental_rerun()
+             
     
     if st.session_state.show_job_list and st.session_state['job_list']:
         st.markdown("### Job Roles You May Need")
@@ -407,11 +396,11 @@ def team_builder_page():
             expected_savings = df["total_savings"].sum()
             connext_total_cost = df["philippines_total_cost"].sum()  # Calculate the total cost when hiring through Connext Global Solutions
     
-            st.write(f"Philippines Overall Cost: {philippines_overall_cost} USD")
-            st.write(f"United States Overall Cost: {united_states_overall_cost} USD")
+            st.write(f"Philippines Overall Cost: ${philippines_overall_cost:,.2f}")
+            st.write(f"United States Overall Cost: ${united_states_overall_cost:,.2f}")
             st.divider()
             st.write(f"* If you hire all of your employees in the Philippines, the following is your expected savings.")
-            st.write(f"Overall Savings: {expected_savings} USD")
+            st.write(f"Overall Savings: ${expected_savings:,.2f}")
             
             st.divider()
     
@@ -445,3 +434,6 @@ def team_builder_page():
             """)
             st_lottie(congratulations_animation, height=200, key="congratulations_animation")
 
+
+if __name__ == "__main__":
+    main()
